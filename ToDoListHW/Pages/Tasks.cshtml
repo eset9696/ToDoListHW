@@ -7,18 +7,26 @@
 <div class="mb-3">
 	<h4>Мои задачи:</h4>
 	<div>
-		<ol>
-			@foreach(TaskItem item in Model.Tasks){
-				<li>
-					<div class="card mb-3 w-75">
-						<div class="card-header d-inline-flex align-items-center justify-content-between">
-							<h5 class="m-1">@item.TaskName</h5>
-							<span>Задача создана: @item.CreationTime</span>
+		<div class="mb3">
+			<a class="btn-primary btn" asp-page="NewTask">Новая задача</a>
+		</div>
+		<hr />
+		<div>
+			<ol>
+				@foreach (TaskItem item in Model.Tasks)
+				{
+					<li>
+						<div class="card mb-3 w-75">
+							<div class="card-header d-inline-flex align-items-center justify-content-between">
+								<h5 class="m-1">@item.TaskName</h5>
+								<span>Задача создана: @item.CreationTime</span>
+							</div>
+							<p class="card-body">@item.TaskDescription</p>
 						</div>
-						<p class="card-body">@item.TaskDescription</p>
-					</div>
-				</li>
-			}
-		</ol>
+					</li>
+				}
+			</ol>
+		</div>
 	</div>
+	
 </div>

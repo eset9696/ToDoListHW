@@ -1,0 +1,23 @@
+﻿@page
+@model ToDoListHW.Pages.NewTaskModel
+@{
+}
+
+<div class="mb-3">
+	<h3>Новая задача</h3>
+	<form method="post">
+		<div class="mb-3">
+			<label for="title">Введите название новой задачи:</label>
+			<br/>
+			<input type="text" name="title" class="w-50"/>
+		</div>
+		<div class="mb-3">
+			<label for="description">Введите описание новой задачи:</label>
+			<br />
+			<textarea name="description" rows="10" cols="75"></textarea>
+		</div>
+		<div class="mb-3">
+			<input action="~/Tasks" type="submit" name="createTask" value="Создать"/>
+		</div>
+	</form>
+</div>

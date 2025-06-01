@@ -12,7 +12,7 @@ namespace ToDoListHW
             // Add services to the container.
             builder.Services.AddRazorPages();
 
-            builder.Services.AddScoped<ITaskService, TaskService>();
+            builder.Services.AddSingleton<ITaskService, TaskService>();
 
             var app = builder.Build();
 
