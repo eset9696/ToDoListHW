@@ -7,14 +7,14 @@
 	<h3>Новая задача</h3>
 	<form method="post">
 		<div class="mb-3">
-			<label for="Title">Введите название новой задачи:</label>
+			<label asp-for="Title">Введите название новой задачи:</label>
 			<br/>
-			<input required type="text" name="Title" class="w-50" />
+			<input asp-for="Title" type="text" name="Title" class="w-50" required />
 		</div>
 		<div class="mb-3">
-			<label for="Description">Введите описание новой задачи:</label>
+			<label asp-for="Description">Введите описание новой задачи:</label>
 			<br />
-			<textarea name="Description" rows="10" cols="75"></textarea>
+			<textarea asp-for="Description" name="Description" rows="10" cols="75"></textarea>
 		</div>
 		<div class="mb-3">
 			<input action="~/Tasks" type="submit" name="createTask" value="Создать"/>
