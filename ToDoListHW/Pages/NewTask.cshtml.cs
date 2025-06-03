@@ -8,12 +8,6 @@ namespace ToDoListHW.Pages
     {
         public readonly ITaskService _taskService;
 
-        [BindProperty]
-        public string? Title { get; set; }
-
-        [BindProperty]
-        public string? Description { get; set; }
-
         public NewTaskModel(ITaskService taskService)
         {
             _taskService = taskService;
@@ -24,7 +18,7 @@ namespace ToDoListHW.Pages
 
         }
 
-        public void OnPost() 
+        public void OnPost(string Title, string Description) 
         {
             _taskService.CreateTask(Title, Description);
         }
