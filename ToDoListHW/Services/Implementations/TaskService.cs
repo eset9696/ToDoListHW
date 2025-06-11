@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Threading.Tasks;
 using ToDoListHW.Models;
 
 namespace ToDoListHW.Services.Implementations
@@ -6,7 +7,7 @@ namespace ToDoListHW.Services.Implementations
     public class TaskService : ITaskService
     {
         private List<TaskItem> _tasks;
-        private uint _taskId;
+        private int _nextTaskId = 0;
 
         public TaskService()
         {
@@ -20,7 +21,6 @@ namespace ToDoListHW.Services.Implementations
             {
                 _tasks = new List<TaskItem>();
             }
-            _taskId = GetNextTaskId();
         }
         public List<TaskItem> GetAllTasks()
         {
@@ -31,7 +31,7 @@ namespace ToDoListHW.Services.Implementations
         {
             TaskItem newTask = new TaskItem()
             {
-                Id = _taskId++,
+                Id = GetNextTaskId(),
                 TaskName = title,
                 TaskDescription = description,
                 CreationTime = DateTime.Now.ToString(),
@@ -40,13 +40,27 @@ namespace ToDoListHW.Services.Implementations
             SaveTasks();
         }
 
-        public void DeleteTask(uint taskId)
+        public void DeleteTask(int taskId)
         {
+            List<TaskItem> tasksUpdated = new List<TaskItem>();
             foreach (var task in _tasks)
             {
-                if (task.Id == taskId) _tasks.Remove(task);
+                if (task.Id == taskId) continue;
+                tasksUpdated.Add(task);
             }
-            //SaveTasks();
+            _tasks = tasksUpdated;
+            SaveTasks();
+        }
+
+        public void EditTask(int taskId, string taskName, string taskDescr)
+        {
+            foreach (var task in _tasks)
+                if (task.Id == taskId)
+                {
+                    task.TaskName = taskName;
+                    task.TaskDescription = taskDescr;
+                }
+            SaveTasks();
         }
 
         private void SaveTasks()
@@ -55,14 +69,12 @@ namespace ToDoListHW.Services.Implementations
             File.WriteAllText("Tasks.json", serializedTasks);
         }
 
-        private uint GetNextTaskId()
+        private int GetNextTaskId()
         {
-            uint nextTaskId = 0;
-
             foreach (var task in _tasks) 
-                if(task.Id > nextTaskId) nextTaskId = task.Id;
+                if(task.Id >= _nextTaskId) _nextTaskId = task.Id + 1;
 
-            return nextTaskId;
+            return _nextTaskId;
         }
     }
 }

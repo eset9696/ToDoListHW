@@ -1,0 +1,32 @@
+﻿@page
+@model ToDoListHW.Pages.EditTaskModel
+@{
+	int pId = Model._taskId;
+	if(pId == 0){
+
+	}
+}
+<div class="mb-3">
+	@if (Model.ErrorMessage != null)
+	{
+		<div class="alert alert-danger">@Model.ErrorMessage</div>
+	}
+	<h3>Редактирование задачи</h3>
+	<form method="post">
+		<div class="mb-3">
+			<label class="form-label" asp-for="Title">Введите новое название задачи:</label>
+			<br />
+			<input asp-for="Title" type="text" name="Title" class="form-control" value="@Model.Title"/>
+			<span class="text-danger" asp-validation-for="Title"></span>
+		</div>
+		<div class="mb-3">
+			<label class="form-label" asp-for="Description">Введите новое описание задачи:</label>
+			<br />
+			<textarea class="form-control" asp-for="Description" name="Description" rows="10">@Model.Description</textarea>
+			<span class="text-dange" asp-validation-for="Description"></span>
+		</div>
+		<div class="mb-3">
+			<input class="btn btn-primary" asp-page-handler="edit" asp-route-taskId="@Model._taskId" action="~/Tasks" type="submit" name="createTask" value="Изменить" />
+		</div>
+	</form>
+</div>

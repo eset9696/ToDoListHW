@@ -21,9 +21,10 @@ namespace ToDoListHW.Pages
         {
             Tasks = _taskService.GetAllTasks();
         }
-        public void OnPostDelete(uint taskId) 
+        public void OnPostDelete(int taskId) 
         {
             _taskService.DeleteTask(taskId);
+            Tasks = _taskService.GetAllTasks();
         }
     }
 }

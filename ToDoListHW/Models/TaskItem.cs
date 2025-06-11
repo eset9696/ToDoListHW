@@ -2,7 +2,7 @@
 {
     public class TaskItem
     {
-        public required uint Id { get; set; }
+        public required int Id { get; set; }
 
         public required string TaskName { get; set; }
 
