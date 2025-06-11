@@ -1,10 +1,6 @@
-﻿@page
+﻿@page "{taskId:int}/{taskTitle}/{taskDescr}"
 @model ToDoListHW.Pages.EditTaskModel
 @{
-	int pId = Model._taskId;
-	if(pId == 0){
-
-	}
 }
 <div class="mb-3">
 	@if (Model.ErrorMessage != null)

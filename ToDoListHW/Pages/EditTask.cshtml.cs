@@ -29,7 +29,8 @@ namespace ToDoListHW.Pages
             _taskService = taskService;
         }
 
-        public void OnPost(int taskId, string taskTitle, string taskDesctr)
+
+        public void OnGet(int taskId, string taskTitle, string taskDesctr)
         {
             _taskId = taskId;
             Title = taskTitle;

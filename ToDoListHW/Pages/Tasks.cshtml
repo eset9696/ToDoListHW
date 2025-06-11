@@ -21,12 +21,13 @@
 								<h5 class="m-1">@item.TaskName</h5>
 								<span>Задача создана: @item.CreationTime</span>
 								<div>
-									<form method="post">
-										<button class="btn btn-info" asp-page="EditTask" asp-route-taskId="@item.Id"
+									<form method="get">
+										<button class="btn btn-info" asp-page="EditTask" asp-page-handler="data" asp-route-taskId="@item.Id"
 												asp-route-taskTitle="@item.TaskName" asp-route-taskDescr="@item.TaskDescription">
 											<i class="bi bi-pencil-fill"></i>
 										</button>
-									
+									</form>
+									<form method="post">
 										<button class="btn btn-danger" type="submit" asp-page-handler="delete" asp-route-taskId="@item.Id">
 											<i class="bi bi-x-circle"></i>
 										</button>
