@@ -7,5 +7,6 @@ namespace ToDoListHW.Services
         public List<TaskItem> GetAllTasks();
 
         public void CreateTask(string taskName, string taskDescr);
+        public void DeleteTask(uint taskId);
     }
 }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Threading.Tasks;
 using ToDoListHW.Models;
 using ToDoListHW.Services;
 
@@ -19,6 +20,10 @@ namespace ToDoListHW.Pages
         public void OnGet()
         {
             Tasks = _taskService.GetAllTasks();
+        }
+        public void OnPostDelete(uint taskId) 
+        {
+            _taskService.DeleteTask(taskId);
         }
     }
 }

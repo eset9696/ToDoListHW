@@ -20,6 +20,12 @@
 							<div class="card-header d-inline-flex align-items-center justify-content-between">
 								<h5 class="m-1">@item.TaskName</h5>
 								<span>Задача создана: @item.CreationTime</span>
+								<div>
+									
+									<button class="btn btn-danger" type="submit" asp-page-handler="delete">
+										<i class="bi bi-x-circle"></i>
+									</button>
+								</div>
 							</div>
 							<p class="card-body">@item.TaskDescription</p>
 						</div>
