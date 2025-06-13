@@ -1,0 +1,29 @@
+﻿@page
+@model ToDoListHW.Pages.EditTaskModel
+@{
+}
+
+<div class="mb-3">
+	@if (Model.ErrorMessage != null)
+	{
+		<div class="alert alert-danger">@Model.ErrorMessage</div>
+	}
+	<h3>Новая задача</h3>
+	<form method="post">
+		<div class="mb-3">
+			<label class="form-label" asp-for="Title">Введите название новой задачи:</label>
+			<br />
+			<input asp-for="Title" type="text" name="Title" class="form-control" />
+			<span class="text-danger" asp-validation-for="Title"></span>
+		</div>
+		<div class="mb-3">
+			<label class="form-label" asp-for="Description">Введите описание новой задачи:</label>
+			<br />
+			<textarea class="form-control" asp-for="Description" name="Description" rows="10"></textarea>
+			<span class="text-dange" asp-validation-for="Description"></span>
+		</div>
+		<div class="mb-3">
+			<input class="btn btn-primary" action="~/Tasks" type="submit" name="createTask" value="Создать" />
+		</div>
+	</form>
+</div>

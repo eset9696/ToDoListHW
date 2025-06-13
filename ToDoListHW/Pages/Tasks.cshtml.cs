@@ -10,15 +10,19 @@ namespace ToDoListHW.Pages
 
         public List<TaskItem> Tasks { get; private set; }
 
-        private readonly ITaskService _taskService;
+        public ITaskService TaskService { get; private set; }
 
         public TasksModel(ITaskService taskService)
         {
-            _taskService = taskService;
+            TaskService = taskService;
         }
         public void OnGet()
         {
-            Tasks = _taskService.GetAllTasks();
+            Tasks = TaskService.GetAllTasks();
+        }
+        public void OnPostDeleteTask(ulong taskId)
+        {
+            TaskService.DeleteTask(taskId);
         }
     }
 }

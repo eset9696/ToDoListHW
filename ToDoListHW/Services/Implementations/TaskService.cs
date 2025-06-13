@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Threading.Tasks;
 using ToDoListHW.Models;
 
 namespace ToDoListHW.Services.Implementations
@@ -7,18 +8,34 @@ namespace ToDoListHW.Services.Implementations
     {
         private List<TaskItem> _tasks;
 
+        private ulong _nextTaskId;
+
         public TaskService()
         {
             try
             {
                 string serializedTasks = File.ReadAllText("Tasks.json");
                 _tasks = JsonSerializer.Deserialize<List<TaskItem>>(serializedTasks);
+                if(_tasks == null)
+                {
+                    throw new Exception("Invalid tasks.json file");
+                }
             }
-            catch (FileNotFoundException)
+            catch (Exception)
             {
                 _tasks = new List<TaskItem>();
             }
-            
+
+            ulong maxTaskId = 0;
+
+            foreach (TaskItem item in _tasks)
+            {
+                if(item.Id > maxTaskId)
+                {
+                    maxTaskId = item.Id;
+                }
+            }
+            _nextTaskId = maxTaskId + 1;
         }
         public List<TaskItem> GetAllTasks()
         {
@@ -29,7 +46,7 @@ namespace ToDoListHW.Services.Implementations
         {
             TaskItem newTask = new TaskItem()
             {
-                Id = 0,
+                Id = _nextTaskId++,
                 TaskName = title,
                 TaskDescription = description,
                 CreationTime = DateTime.Now.ToString(),
@@ -48,6 +65,44 @@ namespace ToDoListHW.Services.Implementations
         {
             string serializedTasks = JsonSerializer.Serialize(_tasks, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText("Tasks.json", serializedTasks);
+        }
+
+        public void DeleteTask(ulong taskId)
+        {
+            foreach (TaskItem item in _tasks)
+            {
+                if (item.Id == taskId)
+                {
+                    _tasks.Remove(item);
+                    break;
+                }
+            }
+            Save();
+        }
+
+        public TaskItem GetTask(ulong? id)
+        {
+            foreach (TaskItem item in _tasks)
+            {
+                if (item.Id == id)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+        public void UpdateTask(ulong? id, TaskItem task)
+        {
+            for(int i = 0; i < _tasks.Count; i++)
+            {
+                TaskItem item = _tasks[i];
+                if (item.Id != id)
+                {
+                    continue;
+                }
+                _tasks[i] = task;  
+            }
+            Save();
         }
     }
 }
